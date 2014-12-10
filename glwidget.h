@@ -102,7 +102,7 @@ public:
 
 signals:
     void model_select();
-    void sendSelectLightMTL(int index);
+//    void sendSelectLightMTL(int index);
     void signal_updateAttr(unsigned int selectedID);
 
 //Added to select by treeView --Lkx

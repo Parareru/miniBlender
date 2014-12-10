@@ -69,8 +69,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, SIGNAL(objectSubmit(bool)), this, SLOT(updateCatalog(bool)));
     connect(this, SIGNAL(sendSelectOBJ(unsigned int)), widget, SLOT(modelSelect(unsigned int)));
     connect(this, SIGNAL(sendMltSubmit(uint)), this, SLOT(updateCatalogMTL(uint)));
-    connect(this, SIGNAL(sendSelectLightMTL(int)), this, SLOT(on_tabWidget_tabBarClicked(int)));
-    connect(widget, SIGNAL(sendSelectLightMTL(int)), this, SLOT(on_tabWidget_tabBarClicked(int)));
+//    connect(this, SIGNAL(sendSelectLightMTL(int)), this, SLOT(on_tabWidget_tabBarClicked(int)));
+//    connect(widget, SIGNAL(sendSelectLightMTL(int)), this, SLOT(on_tabWidget_tabBarClicked(int)));
 
 }
 
@@ -399,7 +399,7 @@ void MainWindow::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int colu
                    qs+=parent->child(i)->text(0)[j];
                parent->child(i)->setText(0,qs);
            }
-       emit sendSelectLightMTL(3);
+//       emit sendSelectLightMTL(3);
        return;
     }
 
@@ -895,6 +895,10 @@ void MainWindow::on_actionSave_Project_triggered()
 
 void MainWindow::on_tabWidget_tabBarClicked(int index)
 {
+    if(widget->selectedID == 0)
+        return;
+    if(models[widget->selectedID - 1].type == NOT)
+        return;
     if(index==2){
         int id=widget->selectedID-1;
         if(id>=0){
@@ -1148,7 +1152,10 @@ void MainWindow::on_emission3_valueChanged(double arg1)
 
 void MainWindow::on_pushButton_2_clicked()
 {
-
+    if(widget->selectedID == 0)
+        return;
+    if(models[widget->selectedID - 1].type == NOT)
+        return;
     QString fileName = QFileDialog::getOpenFileName(this,tr("open file"),"E:/Images",tr("BMP file(*.bmp)"));
     QImage tex, buf;
     if(!buf.load(fileName)){

@@ -37,7 +37,7 @@ signals:
 
     void sendMltSubmit(unsigned int SelectID);
 
-    void sendSelectLightMTL(int index);
+//    void sendSelectLightMTL(int index);
 
 private slots:
     void initSpinBoxAndSlider();
